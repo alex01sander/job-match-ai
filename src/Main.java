@@ -9,12 +9,13 @@ public class Main {
         Usuario usuario = null;
 
 
-        while(opcao != 3){
+        while(opcao != 4){
 
             System.out.println("===== JOBMATCH AI ======");
             System.out.println("1 - Cadastrar usuário");
             System.out.println("2 - Mostrar perfil");
-            System.out.println("3 - Sair");
+            System.out.println("3 - Atualizar nível");
+            System.out.println("4 - Sair");
             System.out.println("=========================");
             opcao = leitura.nextInt();
             leitura.nextLine();
@@ -63,8 +64,16 @@ public class Main {
 
 
             } else if (opcao == 3){
-                System.out.println("Sistema encerrado.");
-            } else{
+               if(usuario != null){
+                   System.out.println("Digite novo nível:");
+                   usuario.setNivel(leitura.next());
+               }else {
+                   System.out.println("Usuário não cadastrado");
+               }
+
+            } else if(opcao == 4){
+                System.out.println("Sistema encerrado");
+            }else {
                 System.out.println("opção invalida");
             }
 
