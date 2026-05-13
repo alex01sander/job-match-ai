@@ -1,12 +1,17 @@
 package model;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
     private String nome;
     private String cidade;
     private String nivel;
-    private List<String> tecnologias;
+    private List<String> tecnologias = new ArrayList<>();
+
+
+
 
 
     public String getNome() {

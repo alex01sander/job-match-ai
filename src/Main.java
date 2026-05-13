@@ -8,13 +8,14 @@ public class Main {
         Scanner leitura = new Scanner(System.in);
         Usuario usuario = null;
 
+
         while(opcao != 3){
 
             System.out.println("===== JOBMATCH AI ======");
             System.out.println("1 - Cadastrar usuário");
             System.out.println("2 - Mostrar perfil");
             System.out.println("3 - Sair");
-            System.out.println("===== JOBMATCH AI ======");
+            System.out.println("=========================");
             opcao = leitura.nextInt();
             leitura.nextLine();
 
@@ -30,6 +31,18 @@ public class Main {
 
                 System.out.print("Digite seu nível: ");
                 usuario.setNivel(leitura.nextLine());
+
+                System.out.println("Digite 3 tecnologias:");
+
+                for (int i = 0; i < 3; i++) {
+                    System.out.print("Tecnologia " + (i + 1) + ": ");
+                    usuario.getTecnologias().add(leitura.nextLine());
+                }
+
+
+
+
+
                 System.out.println("Usuário cadastrado com sucesso!");
 
 
@@ -41,6 +54,7 @@ public class Main {
                     System.out.println("Nome: " + usuario.getNome());
                     System.out.println("Cidade: " + usuario.getCidade());
                     System.out.println("Nível: " + usuario.getNivel());
+                    System.out.println("Tecnologias" + usuario.getTecnologias());
                     System.out.println("-------------------------------");
                 }else {
                     System.out.println("Usuario nao encontrado"
