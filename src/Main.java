@@ -1,15 +1,18 @@
-import model.Usuario;
+import service.UsuarioService;
 
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
-        int opcao = 0;
+
         Scanner leitura = new Scanner(System.in);
-        Usuario usuario = null;
 
+        UsuarioService usuarioService = new UsuarioService();
 
-        while(opcao != 4){
+        int opcao = 0;
+
+        while (opcao != 4) {
 
             System.out.println("===== JOBMATCH AI ======");
             System.out.println("1 - Cadastrar usuário");
@@ -17,70 +20,44 @@ public class Main {
             System.out.println("3 - Atualizar nível");
             System.out.println("4 - Sair");
             System.out.println("=========================");
+
             opcao = leitura.nextInt();
             leitura.nextLine();
 
-            if (opcao == 1) {
+            switch (opcao) {
 
-                usuario = new Usuario();
+                case 1:
 
-                System.out.print("Digite seu nome: ");
-                usuario.setNome(leitura.nextLine());
-
-                System.out.print("Digite sua cidade: ");
-                usuario.setCidade(leitura.nextLine());
-
-                System.out.print("Digite seu nível: ");
-                usuario.setNivel(leitura.nextLine());
-
-                System.out.println("Digite 3 tecnologias:");
-
-                for (int i = 0; i < 3; i++) {
-                    System.out.print("Tecnologia " + (i + 1) + ": ");
-                    usuario.getTecnologias().add(leitura.nextLine());
-                }
-
-
-
-
-
-                System.out.println("Usuário cadastrado com sucesso!");
-
-
-
-
-            }else if(opcao == 2){
-                if (usuario != null){
-                    System.out.println("\n=== PERFIL DO USUÁRIO ===");
-                    System.out.println("Nome: " + usuario.getNome());
-                    System.out.println("Cidade: " + usuario.getCidade());
-                    System.out.println("Nível: " + usuario.getNivel());
-                    System.out.println("Tecnologias" + usuario.getTecnologias());
-                    System.out.println("-------------------------------");
-                }else {
-                    System.out.println("Usuario nao encontrado"
+                    usuarioService.cadastrarUsuario(
+                            usuarioService.criarUsuario(leitura)
                     );
-                }
 
+                    break;
 
-            } else if (opcao == 3){
-               if(usuario != null){
-                   System.out.println("Digite novo nível:");
-                   usuario.setNivel(leitura.next());
-               }else {
-                   System.out.println("Usuário não cadastrado");
-               }
+                case 2:
 
-            } else if(opcao == 4){
-                System.out.println("Sistema encerrado");
-            }else {
-                System.out.println("opção invalida");
+                    usuarioService.mostrarPerfil();
+
+                    break;
+
+                case 3:
+
+                    usuarioService.atualizarNivel(leitura);
+
+                    break;
+
+                case 4:
+
+                    System.out.println("Sistema encerrado");
+
+                    break;
+
+                default:
+
+                    System.out.println("Opção inválida");
             }
-
-
         }
 
         leitura.close();
-
     }
 }
