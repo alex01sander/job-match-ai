@@ -1,4 +1,5 @@
 import service.UsuarioService;
+import service.VagasService;
 
 import java.util.Scanner;
 
@@ -9,16 +10,18 @@ public class Main {
         Scanner leitura = new Scanner(System.in);
 
         UsuarioService usuarioService = new UsuarioService();
+        VagasService vagasService = new VagasService();
 
         int opcao = 0;
 
-        while (opcao != 4) {
+        while (opcao != 5) {
 
             System.out.println("===== JOBMATCH AI ======");
             System.out.println("1 - Cadastrar usuário");
             System.out.println("2 - Mostrar perfil");
             System.out.println("3 - Atualizar nível");
-            System.out.println("4 - Sair");
+            System.out.println("4 - Mostrar Vagas");
+            System.out.println("5 - Sair");
             System.out.println("=========================");
 
             opcao = leitura.nextInt();
@@ -47,6 +50,12 @@ public class Main {
                     break;
 
                 case 4:
+
+                    vagasService.mostrarVagas();
+
+                    break;
+
+                case 5:
 
                     System.out.println("Sistema encerrado");
 

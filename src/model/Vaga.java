@@ -8,9 +8,18 @@ public class Vaga {
     private String nivel;
     private List<String> requisitos;
 
+    public Vaga(String empresa, String cargo, String nivel, List<String> requisitos) {
+        this.empresa = empresa;
+        this.cargo = cargo;
+        this.nivel = nivel;
+        this.requisitos = requisitos;
+    }
+
     public String getEmpresa() {
         return empresa;
     }
+
+
 
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
