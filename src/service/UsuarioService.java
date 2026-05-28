@@ -72,4 +72,8 @@ public class UsuarioService {
 
         System.out.println("Nível atualizado com sucesso!");
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
 }

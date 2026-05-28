@@ -1,3 +1,4 @@
+import service.MatchService;
 import service.UsuarioService;
 import service.VagasService;
 
@@ -11,17 +12,17 @@ public class Main {
 
         UsuarioService usuarioService = new UsuarioService();
         VagasService vagasService = new VagasService();
-
+        MatchService matchService = new MatchService();
         int opcao = 0;
 
-        while (opcao != 5) {
+        while (opcao != 6) {
 
             System.out.println("===== JOBMATCH AI ======");
             System.out.println("1 - Cadastrar usuário");
             System.out.println("2 - Mostrar perfil");
             System.out.println("3 - Atualizar nível");
             System.out.println("4 - Mostrar Vagas");
-            System.out.println("5 - Sair");
+            System.out.println("5 - Vagas Compativel");
             System.out.println("=========================");
 
             opcao = leitura.nextInt();
@@ -56,6 +57,15 @@ public class Main {
                     break;
 
                 case 5:
+
+                   matchService.buscarMatches(
+                           usuarioService.getUsuario(),
+                           vagasService.getListaDeVagas());
+
+                    break;
+
+
+                case 6:
 
                     System.out.println("Sistema encerrado");
 

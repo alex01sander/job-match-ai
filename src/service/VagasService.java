@@ -41,7 +41,9 @@
             }
         }
 
-
+        public List<Vaga> getListaDeVagas() {
+            return listaDeVagas;
+        }
 
 
     }
