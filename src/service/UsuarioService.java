@@ -2,11 +2,13 @@ package service;
 
 import model.Usuario;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UsuarioService {
 
-    private Usuario usuario;
+    private List<Usuario> usuarios = new ArrayList<>();
 
     public Usuario criarUsuario(Scanner leitura) {
 
@@ -35,45 +37,147 @@ public class UsuarioService {
 
     public void cadastrarUsuario(Usuario usuario) {
 
-        this.usuario = usuario;
+        usuarios.add(usuario);
 
         System.out.println("Usuário cadastrado com sucesso!");
     }
 
-    public void mostrarPerfil() {
+    public void listarUsuarios() {
 
-        if (usuario == null) {
-
-            System.out.println("Usuário não encontrado");
-
+        if (usuarios.isEmpty()) {
+            System.out.println("Nenhum usuário cadastrado");
             return;
         }
 
-        System.out.println("\n=== PERFIL DO USUÁRIO ===");
-        System.out.println("Nome: " + usuario.getNome());
-        System.out.println("Cidade: " + usuario.getCidade());
-        System.out.println("Nível: " + usuario.getNivel());
-        System.out.println("Tecnologias: " + usuario.getTecnologias());
-        System.out.println("--------------------------");
+        for (int i = 0; i < usuarios.size(); i++) {
+
+            System.out.println("\n=== PERFIL DO USUÁRIO " + (i + 1) + " ===");
+            System.out.println("Nome: " + usuarios.get(i).getNome());
+
+            System.out.println("--------------------------");
+        }
+    }
+
+    public void mostrarPerfil(Scanner leitura) {
+
+        if (usuarios.isEmpty()) {
+            System.out.println("Nenhum usuário cadastrado");
+            return;
+        }
+
+        for (int i = 0; i < usuarios.size(); i++) {
+            System.out.println((i + 1) + " - " + usuarios.get(i).getNome());
+        }
+
+        System.out.print("Escolha o número do usuário: ");
+        int indice = leitura.nextInt();
+        leitura.nextLine();
+
+        if (indice < 1 || indice > usuarios.size()) {
+            System.out.println("Usuário inválido!");
+            return;
+        }
+
+        Usuario usuario = usuarios.get(indice - 1);
+
+        System.out.printf("""
+            
+            === PERFIL DO USUÁRIO ===
+            Nome: %s
+            Cidade: %s
+            Nível: %s
+            Tecnologias: %s
+            --------------------------
+            """,
+                usuario.getNome(),
+                usuario.getCidade(),
+                usuario.getNivel(),
+                usuario.getTecnologias()
+        );
     }
 
     public void atualizarNivel(Scanner leitura) {
 
-        if (usuario == null) {
-
-            System.out.println("Usuário não cadastrado");
-
+        if (usuarios.isEmpty()) {
+            System.out.println("Nenhum usuário cadastrado");
             return;
         }
 
-        System.out.print("Digite novo nível: ");
 
+        for (int i = 0; i < usuarios.size(); i++) {
+            System.out.println((i + 1) + " - " + usuarios.get(i).getNome());
+        }
+
+
+        System.out.print("Escolha o número do usuário: ");
+        int indice = leitura.nextInt();
+        leitura.nextLine();
+
+
+        if (indice < 1 || indice > usuarios.size()) {
+            System.out.println("Usuário inválido!");
+            return;
+        }
+
+        Usuario usuario = usuarios.get(indice - 1);
+
+
+        System.out.print("Digite o novo nível: ");
         usuario.setNivel(leitura.nextLine());
 
         System.out.println("Nível atualizado com sucesso!");
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public void removerUsuario(Scanner leitura) {
+        if (usuarios.isEmpty()) {
+            System.out.println("Nenhum usuario cadastrado");
+            return;
+        }
+
+        for (int i = 0; i < usuarios.size(); i++) {
+            System.out.println((i + 1) + " - " + usuarios.get(i).getNome());
+        }
+
+        System.out.print("Escolha o número do usuário: ");
+        int indice = leitura.nextInt();
+        leitura.nextLine();
+
+
+        if (indice < 1 || indice > usuarios.size()) {
+            System.out.println("Usuário inválido!");
+            return;
+        }
+
+
+        usuarios.remove(indice - 1);
+
+        System.out.println("Usuário removido com sucesso!");
+    }
+
+    public List<Usuario> getUsuarios(){
+        return usuarios;
+    }
+
+    public Usuario selecionarUsuario(Scanner leitura) {
+
+        if (usuarios.isEmpty()) {
+            System.out.println("Nenhum usuário cadastrado");
+            return null;
+        }
+
+        for (int i = 0; i < usuarios.size(); i++) {
+            System.out.println((i + 1) + " - " + usuarios.get(i).getNome());
+        }
+
+        System.out.print("Escolha o número do usuário: ");
+        int indice = leitura.nextInt();
+        leitura.nextLine();
+
+        if (indice < 1 || indice > usuarios.size()) {
+            System.out.println("Usuário inválido!");
+            return null;
+        }
+
+        return usuarios.get(indice - 1);
     }
 }

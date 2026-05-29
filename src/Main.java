@@ -1,3 +1,4 @@
+import model.Usuario;
 import service.MatchService;
 import service.UsuarioService;
 import service.VagasService;
@@ -15,7 +16,7 @@ public class Main {
         MatchService matchService = new MatchService();
         int opcao = 0;
 
-        while (opcao != 6) {
+        while (opcao != 7) {
 
             System.out.println("===== JOBMATCH AI ======");
             System.out.println("1 - Cadastrar usuário");
@@ -23,6 +24,7 @@ public class Main {
             System.out.println("3 - Atualizar nível");
             System.out.println("4 - Mostrar Vagas");
             System.out.println("5 - Vagas Compativel");
+            System.out.println("6 - Remover perfil");
             System.out.println("=========================");
 
             opcao = leitura.nextInt();
@@ -40,7 +42,7 @@ public class Main {
 
                 case 2:
 
-                    usuarioService.mostrarPerfil();
+                    usuarioService.mostrarPerfil(leitura);
 
                     break;
 
@@ -58,14 +60,26 @@ public class Main {
 
                 case 5:
 
-                   matchService.buscarMatches(
-                           usuarioService.getUsuario(),
-                           vagasService.getListaDeVagas());
+                    Usuario usuario = usuarioService.selecionarUsuario(leitura);
+
+                    if (usuario != null) {
+
+                        matchService.buscarMatches(
+                                usuario,
+                                vagasService.getListaDeVagas()
+                        );
+                    }
 
                     break;
 
 
                 case 6:
+
+                    usuarioService.removerUsuario(leitura);
+
+                    break;
+
+                case 7:
 
                     System.out.println("Sistema encerrado");
 
