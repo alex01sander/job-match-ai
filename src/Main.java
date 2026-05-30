@@ -1,8 +1,10 @@
 import model.Usuario;
+import model.Vaga;
 import service.MatchService;
 import service.UsuarioService;
 import service.VagasService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -59,15 +61,26 @@ public class Main {
                     break;
 
                 case 5:
-
                     Usuario usuario = usuarioService.selecionarUsuario(leitura);
 
                     if (usuario != null) {
-
-                        matchService.buscarMatches(
+                        List<Vaga> matches = matchService.buscarMatches(
                                 usuario,
                                 vagasService.getListaDeVagas()
                         );
+
+                        if (matches.isEmpty()) {
+                            System.out.println("Nenhuma vaga compatível encontrada.");
+                        } else {
+                            System.out.println("\n=== VAGAS COMPATÍVEIS ===");
+                            matches.forEach(vaga -> {
+                                System.out.println("MATCH ENCONTRADO!");
+                                System.out.println("Empresa: " + vaga.getEmpresa());
+                                System.out.println("Cargo: " + vaga.getCargo());
+                                System.out.println("Nível: " + vaga.getNivel());
+                                System.out.println("---------------------------");
+                            });
+                        }
                     }
 
                     break;

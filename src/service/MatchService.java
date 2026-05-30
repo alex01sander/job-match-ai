@@ -4,57 +4,26 @@ import model.Usuario;
 import model.Vaga;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MatchService {
 
-    public void buscarMatches(Usuario usuario, List<Vaga> listaDeVagas) {
-
+    public List<Vaga> buscarMatches(Usuario usuario, List<Vaga> vagas) {
         if (usuario == null) {
-
-            System.out.println("Usuário não encontrado.");
-            return;
+            throw new IllegalArgumentException("Usuário não pode ser nulo.");
         }
 
-        System.out.println("\n=== VAGAS COMPATÍVEIS ===");
+        return vagas.stream()
+                .filter(vaga -> nivelCompativel(vaga, usuario))
+                .filter(vaga -> requisitosAtendidos(vaga, usuario))
+                .collect(Collectors.toList());
+    }
 
-        boolean algumMatchEncontrado = false;
+    private boolean nivelCompativel(Vaga vaga, Usuario usuario) {
+        return vaga.getNivel().equalsIgnoreCase(usuario.getNivel());
+    }
 
-        for (Vaga vaga : listaDeVagas) {
-
-            // valida nível primeiro
-            if (!vaga.getNivel().equalsIgnoreCase(usuario.getNivel())) {
-                continue;
-            }
-
-            boolean temTodosOsRequisitos = true;
-
-            // percorre requisitos da vaga
-            for (String requisito : vaga.getRequisitos()) {
-
-                // usuário não possui requisito
-                if (!usuario.getTecnologias().contains(requisito)) {
-
-                    temTodosOsRequisitos = false;
-                    break;
-                }
-            }
-
-            // se passou em tudo
-            if (temTodosOsRequisitos) {
-
-                System.out.println("MATCH ENCONTRADO!");
-                System.out.println("Empresa: " + vaga.getEmpresa());
-                System.out.println("Cargo: " + vaga.getCargo());
-                System.out.println("Nível: " + vaga.getNivel());
-                System.out.println("---------------------------");
-
-                algumMatchEncontrado = true;
-            }
-        }
-
-        if (!algumMatchEncontrado) {
-
-            System.out.println("Nenhuma vaga compatível encontrada.");
-        }
+    private boolean requisitosAtendidos(Vaga vaga, Usuario usuario) {
+        return usuario.getTecnologias().containsAll(vaga.getRequisitos());
     }
 }

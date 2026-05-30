@@ -31,6 +31,10 @@
 
         public void mostrarVagas() {
 
+            if (listaDeVagas.isEmpty()) {
+                System.out.println("Nenhuma vaga cadastrada.");
+                return;
+            }
             for (Vaga vaga : listaDeVagas) {
 
                 System.out.println("Empresa: " + vaga.getEmpresa());
@@ -40,9 +44,8 @@
                 System.out.println("---------------------------");
             }
         }
-
         public List<Vaga> getListaDeVagas() {
-            return listaDeVagas;
+            return new ArrayList<>(listaDeVagas);
         }
 
 
